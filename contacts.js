@@ -13,7 +13,9 @@ function getContactById(contactId) {
   fs.readFile(contactsPath)
     .then((data) =>
       console.table(
-        JSON.parse(data).find((contact) => Number(contact.id) === contactId)
+        JSON.parse(data).find(
+          (contact) => Number(contact.id) === Number(contactId)
+        )
       )
     )
     .catch((err) => console.error(err.message));
@@ -24,7 +26,7 @@ function removeContact(contactId) {
     .then((data) => {
       const contacts = JSON.parse(data);
       const index = contacts.findIndex(
-        (contact) => Number(contact.id) === contactId
+        (contact) => Number(contact.id) === Number(contactId)
       );
       contacts.splice(index, 1);
       return contacts;
@@ -53,3 +55,9 @@ function addContact(name, email, phone) {
     .catch((err) => console.error(err.message));
 }
 
+module.exports = {
+  listContacts,
+  getContactById,
+  removeContact,
+  addContact,
+};
